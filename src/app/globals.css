@@ -2,25 +2,107 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0f172a;
+  --primary: #facc15;
+  --primary-dark: #eab308;
+  --secondary: #f8fafc;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    @apply font-sans antialiased text-gray-900 bg-gray-50;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility glass {
+  @apply bg-white/70 backdrop-blur-lg border border-white/20 shadow-xl;
+}
+
+@keyframes bounce-slow {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
+}
+
+@media print {
+
+  /* Hide Sidebar and other non-essential elements */
+  aside,
+  nav,
+  header,
+  button,
+  .no-print,
+  input[type="checkbox"] {
+    display: none !important;
+  }
+
+  /* Explicitly show elements with print:table-cell */
+  /* This is usually handled by Tailwind but forcing it for reliability in @media print block */
+  .print\:table-cell {
+    display: table-cell !important;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Reset layout for print */
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Ensure background colors are printed */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Table specific styles for print */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  th,
+  td {
+    border: 1px solid #ddd !important;
+    padding: 8px !important;
+    text-align: left !important;
+    font-size: 10px !important;
+  }
+
+  /* Page break inside rows */
+  tr {
+    page-break-inside: avoid;
+  }
+
+  /* Print Header with date */
+  .print-header {
+    display: block !important;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+}
+
+.print-header {
+  display: none;
 }
