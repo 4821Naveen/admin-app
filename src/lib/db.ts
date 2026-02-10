@@ -23,7 +23,7 @@ async function connectToDatabase() {
 
 
   if (!MONGODB_URI) {
-    throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
+    throw new Error('Please define the MONGODB_URI environment variable');
   }
 
   if (!cached.promise) {
