@@ -10,6 +10,12 @@ export interface ICompanyDetails extends Document {
     gstNumber?: string;
     fssaiNumber?: string;
     socialLinks?: Record<string, string>;
+    paymentGateway?: {
+        provider: string;
+        isActive: boolean;
+        keyId?: string;
+        keySecret?: string;
+    };
 }
 
 const CompanyDetailsSchema: Schema = new Schema({
